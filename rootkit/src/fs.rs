@@ -14,7 +14,7 @@ const FILE_ID_FULL_DIR_INFORMATION: u32 = 38;
 
 const STATUS_NO_MORE_FILES: i32 = 0x80000006u32 as i32;
 
-type NtQueryDirectoryFileType = unsafe extern "system" fn(
+type NtQueryDirectoryFile = unsafe extern "system" fn(
     file_handle: HANDLE,
     event: HANDLE,
     apc_routine: *mut c_void,
@@ -52,8 +52,6 @@ pub unsafe extern "system" fn hook_nt_query_directory_file(
     unsafe {
         state.unhook();
 
-        let original_func = mem::transmute::<usize, NtQueryDirectoryFileType>(state.target);
-
         let valid_class = matches!(
             file_information_class,
             FILE_DIRECTORY_INFORMATION | FILE_FULL_DIR_INFORMATION |
@@ -61,6 +59,7 @@ pub unsafe extern "system" fn hook_nt_query_directory_file(
             FILE_ID_BOTH_DIR_INFORMATION | FILE_ID_FULL_DIR_INFORMATION
         );
 
+        let original_func = mem::transmute::<usize, NtQueryDirectoryFile>(state.target);
         let mut status = original_func(
             file_handle,
             event,

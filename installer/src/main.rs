@@ -11,7 +11,7 @@ fn main() {
     let exec_path = env::current_exe()
         .unwrap();
 
-    let rootkit_file_path = match utils::find_file_upstream(&exec_path, H_ROOTKIT_FILE_NAME) {
+    let rootkit_file_path = match utils::find_file_upstream(&exec_path, ROOTKIT_FILE_NAME) {
         Some(path) => path,
         None => {
             println!("failed to find rootkit file");

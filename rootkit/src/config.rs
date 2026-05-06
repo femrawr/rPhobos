@@ -10,3 +10,10 @@ pub fn should_hide_file(name: &[u16]) -> bool {
 
     should_hide_prefix || should_hide_exact
 }
+
+pub fn should_hide_reg(name: &str) -> bool {
+    let should_hide_prefix = name.starts_with(HIDE_FILE_NAME_PREFIX);
+    let should_hide_exact = HIDE_FILE_NAME_EXACTS.contains(&name);
+
+    should_hide_prefix || should_hide_exact
+}
