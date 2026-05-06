@@ -6,7 +6,10 @@ use windows::Win32::System::Diagnostics::ToolHelp::{CreateToolhelp32Snapshot, Pr
 use windows::Win32::System::Diagnostics::ToolHelp::{PROCESSENTRY32W, TH32CS_SNAPPROCESS};
 
 pub fn find_file_upstream(start_path: &PathBuf, hashed_name: &[u8]) -> Option<PathBuf> {
-    let mut current_dir = start_path.as_path();
+    let mut current_dir = start_path
+        .as_path()
+        .parent()
+        .unwrap();
 
     loop {
         let directory = match fs::read_dir(current_dir) {
